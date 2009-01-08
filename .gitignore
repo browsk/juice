@@ -1,0 +1,9 @@
+#
+# user properies - visual studio and Resharper
+*.user
+*.suo
+# Resharper temp folder
+_ReSharper.Juice/
+# bin and obj directories
+bin/
+obj/
