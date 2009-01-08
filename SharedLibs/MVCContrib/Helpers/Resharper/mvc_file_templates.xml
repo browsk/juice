@@ -1,0 +1,20 @@
+<TemplatesExport>
+  <Folder name="File 'mvc_file_templates.xml'">
+    <Folder name="Microsoft MVC">
+      <Template uid="bcc2b313-f6cf-49be-a2ac-1d230bb7a899" text="using System;&#xD;&#xA;using System.Web;&#xD;&#xA;using System.Web.Mvc;&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;  public class $CLASS$ : Controller {&#xD;&#xA;  	[ControllerAction]&#xD;&#xA;        public void Index() {&#xD;&#xA;            //Add action logic here&#xD;&#xA;        }&#xD;&#xA;  	$END$&#xD;&#xA;  }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;" shortcut="Class" description="MVC Controller" reformat="true" shortenQualifiedReferences="true">
+        <Context>
+          <ProjectLanguageContext language="CSharp" />
+        </Context>
+        <Variables>
+          <Variable name="CLASS" expression="getFileNameWithoutExtension()" initialRange="-1" />
+          <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+        </Variables>
+        <CustomProperties>
+          <Property key="FileName" value="Controller" />
+          <Property key="Extension" value="cs" />
+          <Property key="ValidateFileName" value="False" />
+        </CustomProperties>
+      </Template>
+    </Folder>
+  </Folder>
+</TemplatesExport>

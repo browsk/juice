@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+
+
+<objects xmlns="http://www.springframework.net"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:tx="http://www.springframework.net/tx"
+         xmlns:db="http://www.springframework.net/database"
+         xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/schema/objects/spring-objects.xsd
+         http://www.springframework.net/tool http://www.springframework.net/schema/tool/spring-tool.xsd
+         http://www.springframework.net/tx http://www.springframework.net/schema/tx/spring-tx-1.1.xsd
+         ">
+
+
+  <description>MVC Controller Declarations</description>
+  <object id="ProjectsController" type="Juice.WebSite.Controllers.ProjectsController" scope="request">
+    <property name="Repository" ref="ProjectDao"/>
+  </object>
+
+  <object id="TasksController" type="Juice.WebSite.Controllers.TasksController" scope="request">
+    <property name="TaskRepository" ref="TaskDao"/>
+    <property name="ProjectRepository" ref="ProjectDao"/>
+  </object>
+  
+  <object id="SprintsController" type="Juice.WebSite.Controllers.SprintsController" scope="request">
+    <property name="SprintRepository" ref="SprintDao"/>
+    <property name="ProjectRepository" ref="ProjectDao"/>
+  </object>
+
+  <db:provider id="DbProvider" provider="Npgsql-2.0" connectionString="Server=localhost;Port=5432;User Id=miniscrum;Password=miniscrum;Database=miniscrum_testing;"/>
+
+  <object id="HibernateTransactionManager"
+      type="Spring.Data.NHibernate.HibernateTransactionManager, Spring.Data.NHibernate20">
+
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="SessionFactory" ref="JuiceSessionFactory"/>
+
+  </object>
+  
+  
+  <object id="JuiceSessionFactory" type="Spring.Data.NHibernate.LocalSessionFactoryObject, Spring.Data.NHibernate20">
+    <property name="DbProvider" ref="DbProvider"/>
+    <property name="ExposeTransactionAwareSessionFactory" value="true" />
+    <property name="MappingAssemblies">
+      <list>
+        <value>Juice.Core</value>
+      </list>
+    </property>
+    <property name="HibernateProperties">
+      <dictionary>
+
+        <entry key="connection.provider"
+               value="NHibernate.Connection.DriverConnectionProvider"/>
+
+        <entry key="dialect"
+               value="NHibernate.Dialect.PostgreSQL82Dialect"/>
+
+        <entry key="connection.driver_class"
+               value="NHibernate.Driver.NpgsqlDriver"/>
+        <entry key="show_sql"
+               value = "true"/>
+      </dictionary>
+    </property>  
+  </object>
+
+  <object id="ProjectDao" type="Juice.DataAccess.Repositories.ProjectRepository, Juice.DataAccess">
+    <property name="SessionFactory" ref="JuiceSessionFactory"/>
+  </object>
+
+  <object id="TaskDao" type="Juice.DataAccess.Repositories.TaskRepository, Juice.DataAccess">
+    <property name="SessionFactory" ref="JuiceSessionFactory"/>
+  </object>
+
+  <object id="SprintDao" type="Juice.DataAccess.Repositories.SprintRepository, Juice.DataAccess">
+    <property name="SessionFactory" ref="JuiceSessionFactory"/>
+  </object>
+
+  <tx:attribute-driven transaction-manager="HibernateTransactionManager"/>
+  
+</objects>

@@ -1,0 +1,65 @@
+<TemplatesExport>
+  <Folder name="File 'mvc.xml'">
+    <Folder name="MicrosoftMVC">
+      <Template uid="7da72761-6995-4e73-a685-dd4116627a63" text="[ControllerAction]&#xD;&#xA;public void $ActionName$($END$)&#xD;&#xA;{&#xD;&#xA;	RenderView(&quot;$ViewName$&quot;);&#xD;&#xA;}&#xD;&#xA;" shortcut="mvcca" description="Controller Action" reformat="true" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="TypeMember" />
+        </Context>
+        <Variables>
+          <Variable name="ActionName" expression="suggestVariableName()" initialRange="0" />
+          <Variable name="ViewName" expression="capitalize(ActionName)" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="2bc1e09f-f057-4b91-ae72-c0cf464af418" text="RedirectToAction(new {Action = &quot;$ActionName$&quot;$END$});" shortcut="mvcrta" description="RedirectToAction" reformat="false" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="Statement" />
+        </Context>
+        <Variables>
+          <Variable name="ActionName" expression="suggestVariableName()" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="555783b9-bd9a-48df-9b53-5a2d972537d4" text="RenderView(&quot;$VIEWNAME$&quot;$END$);" shortcut="mvcrv" description="RenderView" reformat="false" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="Statement" />
+        </Context>
+        <Variables>
+          <Variable name="VIEWNAME" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="a6491a69-224e-4a09-9db7-dccc6dccd46e" text="Html.ActionLink(&quot;$ACTIONTEXT$&quot;, new { Action=&quot;$CONTROLLERACTION$&quot;$END$})" shortcut="mvcal" description="ActionLink" reformat="false" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="Expression" />
+        </Context>
+        <Variables>
+          <Variable name="ACTIONTEXT" expression="" initialRange="0" />
+          <Variable name="CONTROLLERACTION" expression="capitalize(ACTIONTEXT)" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="dfa9e698-78e4-428d-89ae-91265874d116" text="RouteTable.Routes.Add(new Route &#xD;&#xA;{ &#xD;&#xA;	Url = &quot;$URL$&quot;, &#xD;&#xA;	Defaults = new { controller = &quot;$CONTROLLER$&quot;, action=&quot;$ACTION$&quot;$END$ },&#xD;&#xA;        RouteHandler = typeof(MvcRouteHandler)&#xD;&#xA;});" shortcut="mvcrt" description="New MVC Route" reformat="false" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="Statement" />
+        </Context>
+        <Variables>
+          <Variable name="URL" expression="" initialRange="0" />
+          <Variable name="CONTROLLER" expression="" initialRange="0" />
+          <Variable name="ACTION" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="9a5cd585-1282-455b-9a5f-32faced4f5e7" text="Url.Action(new {Controller = &quot;$CONTROLLERNAME$&quot;,Action = &quot;$ACTIONNAME$&quot;$END$ })" shortcut="mvcua" description="MVC Url.Action" reformat="true" shortenQualifiedReferences="true">
+        <Context>
+          <CSharpContext context="Statement" />
+        </Context>
+        <Variables>
+          <Variable name="CONTROLLERNAME" expression="" initialRange="0" />
+          <Variable name="ACTIONNAME" expression="" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+    </Folder>
+  </Folder>
+</TemplatesExport>

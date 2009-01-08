@@ -1,0 +1,22 @@
+﻿_ JQueryHelpers
+.tasks
+  %h1 Tasks
+  %table.tasks
+    %thead
+      %tr
+        %th Name
+        %th Somthing...
+        %th
+    %tbody
+    - foreach (var task in ViewData.Model)
+      {
+        %tr
+          %td= task.Name
+          %td= Hello...
+          %td
+            %div
+              Html.ActionLink("Edit", "Edit", new {id = task.Id})
+            %div
+              Html.ActionLink("Delete", "Delete", new {id = project.Id})
+      }
+  =Html.ActionLink("New Task", "Create")

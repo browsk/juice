@@ -1,0 +1,5 @@
+﻿%h2= Html.Encode(ViewData["Message"])
+%p
+  - if (ViewData.ContainsKey("CurrentProjectName"))
+    The current selected project is
+    =ViewData["CurrentProjectName"]

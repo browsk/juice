@@ -1,0 +1,44 @@
+﻿%link {rel="stylesheet", href="../Content/themes/default/ui.theme.css", type="text/css", media="screen", title="Redmond"}
+//%link {rel="stylesheet", href="http://ui.jquery.com/latest/themes/flora/flora.datepicker.css", type="text/css", media="screen", title="Redmond"}
+%script {type="text/javascript",src="../Scripts/jquery-1.2.6.min.js"}
+%script {type="text/javascript",src="../Scripts/jquery-ui-1.5.3/jquery-ui-1.5.3.min.js"}
+//%script {type="text/javascript",src="http://code.jquery.com/jquery-latest.js"}
+//%script {type="text/javascript",src="http://ui.jquery.com/latest/ui/ui.datepicker.js"}
+
+%script {type="text/javascript"}
+  $(document).ready(function() { 
+    $.datepicker.setDefaults(
+      {
+        mandatory:true,
+        dateFormat:'dd-mm-yy',
+        duration:'normal',
+        constrainInput:true
+      }
+    );
+    $('#startdate').datepicker();
+    $('#enddate').datepicker();
+  });
+- using(Html.BeginForm("CreateNew", "Sprints"))
+    %br
+    %table
+      %tr.required
+        %td
+          %label.name Name:
+        %td  
+          =Html.TextBox("name")
+      %tr.required
+        %td
+          %label.startdate Start Date:
+        %td
+          =Html.TextBox("startdate")
+      %tr.required
+        %td
+          %label.enddate End Date:
+          %td
+            =Html.TextBox("enddate")
+        %tr.required
+          %td
+            %label.project Project:
+          %td
+            =Html.DropDownList("Id", ViewData.Model)
+    %input{ type="submit" value="Submit"}

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ClassLibraryOutputDirectory>bin\$(Configuration)</ClassLibraryOutputDirectory>
+    <MigratorTasksPath>$(MSBuildProjectDirectory)\lib</MigratorTasksPath>
+    <MigrationsProject>Juice.Migrations.csproj</MigrationsProject>
+  </PropertyGroup>
+
+  <Import Project="$(MigratorTasksPath)\Migrator.Targets" />
+
+  <Target Name="Build-Migrations">
+    <MSBuild Projects="$(MigrationsProject)" Targets="Build">
+      <Output TaskParameter="TargetOutputs" ItemName="MigrationAssemblies" />
+    </MSBuild>
+
+    <Message Text="Built: @(MigrationAssemblies)"/>
+  </Target>
+
+  <Target Name="Migrate" DependsOnTargets="Build-Migrations">
+    <Message Text="Migrating: @(MigrationAssemblies)"/>
+
+    <CreateProperty Value="-1"  Condition="'$(SchemaVersion)'==''">
+      <Output TaskParameter="Value" PropertyName="SchemaVersion"/>
+    </CreateProperty>
+    <Migrate Provider="PostgreSQL"
+        Connectionstring="Server=127.0.0.1;Port=5432;User Id=miniscrum;Password=miniscrum;Database=miniscrum;"
+        Migrations="@(MigrationAssemblies)"
+        To="$(SchemaVersion)"/>
+  </Target>
+</Project>

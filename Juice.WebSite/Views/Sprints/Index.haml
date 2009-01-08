@@ -1,0 +1,24 @@
+﻿_ JQueryHelpers
+.sprints
+  %h1 Sprints
+  %table.sprints
+    %thead
+      %tr
+        %th Name
+        %th Start Date
+        %th End Date
+    %tbody
+    /- if (ViewData.Model.Count != 0)
+    /{
+      - foreach (var sprint in ViewData.Model)
+        {
+          %tr
+            %td= sprint.Name
+            %td= sprint.StartDate
+            %td= sprint.EndDate
+              %div
+                =Html.ActionLink("Edit", "Edit", new {id = sprint.Id})
+              %div
+                =Html.ActionLink("Delete", "Delete", new {id = sprint.Id})
+        }
+  =Html.ActionLink("New Sprint", "Create")  

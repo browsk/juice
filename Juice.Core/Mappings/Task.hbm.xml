@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Juice.Core"
+                   namespace="Juice.Core.Domain">
+
+  <class name="Task" table="Tasks">
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="Name"/>
+    <property name="Description"/>
+    <many-to-one name="Sprint" class="Juice.Core.Domain.Sprint, Juice.Core" column="SprintId" not-null="true"/>
+    <many-to-one name="Story" class="Juice.Core.Domain.Story, Juice.Core" column="StoryId" not-null="false"/>
+  </class>
+</hibernate-mapping>

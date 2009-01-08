@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Documents and Settings\kwang\My Documents\Visual Studio 2005\Projects\NHContrib\src\NHibernate.Burrow\build\NHibernate.Burrow-1.0.1.GA\bin\net-2.0\NHibernate.Burrow.AppBlock.Test.dll" total="44" failures="0" not-run="0" date="2008-11-14" time="04:30:59">
+  <environment nunit-version="2.2.8.0" clr-version="2.0.50727.1433" os-version="Microsoft Windows NT 5.1.2600 Service Pack 3" platform="Win32NT" cwd="C:\Documents and Settings\kwang\My Documents\Visual Studio 2005\Projects\NHContrib\src\NHibernate.Burrow" machine-name="KWANG" user="kwang" user-domain="MHEXCHANGE" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite name="C:\Documents and Settings\kwang\My Documents\Visual Studio 2005\Projects\NHContrib\src\NHibernate.Burrow\build\NHibernate.Burrow-1.0.1.GA\bin\net-2.0\NHibernate.Burrow.AppBlock.Test.dll" success="True" time="3.953" asserts="0">
+    <results>
+      <test-suite name="NHibernate" success="True" time="3.953" asserts="0">
+        <results>
+          <test-suite name="NHibernate.Burrow" success="True" time="3.953" asserts="0">
+            <results>
+              <test-suite name="NHibernate.Burrow.AppBlock" success="True" time="3.953" asserts="0">
+                <results>
+                  <test-suite name="NHibernate.Burrow.AppBlock.Test" success="True" time="3.953" asserts="0">
+                    <results>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.CriterionTest" success="True" time="2.766" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.CriterionTest.CriterionTest" success="True" time="2.766" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.CriterionTest.CriterionTest.EqOrNullTest" executed="True" success="True" time="0.172" asserts="5" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.DynamicQuery" success="True" time="0.031" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DetachedDynQueryFixture" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DetachedDynQueryFixture.ToRowCount" executed="True" success="True" time="0.016" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.CommonUse" executed="True" success="True" time="0.000" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.DirtyWhereCostruction" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.LogicalExpressionTest" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.OrderByInjection" executed="True" success="True" time="0.000" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.OrderByTest" executed="True" success="True" time="0.016" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.SelectTest" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.SelectWhereTest" executed="True" success="True" time="0.000" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.SimpleQuery" executed="True" success="True" time="0.000" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.DynamicQuery.DynQueryFixture.WhereInjection" executed="True" success="True" time="0.000" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination" success="True" time="0.922" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.BasePaginatorFixture" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.BasePaginatorFixture.GotoOutOfPages" executed="True" success="True" time="0.000" asserts="0" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.BasePaginatorFixture.KnowLastPage" executed="True" success="True" time="0.000" asserts="15" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.BasePaginatorFixture.NoPageAvailable" executed="True" success="True" time="0.000" asserts="7" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.BasePaginatorFixture.UnknowLastPage" executed="True" success="True" time="0.000" asserts="14" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.NamedQueryRowsCounterFixture" success="True" time="0.266" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.NamedQueryRowsCounterFixture.RowsCount" executed="True" success="True" time="0.187" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.NamedQueryRowsCounterFixture.RowsCountUsingParameters" executed="True" success="True" time="0.047" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableCriteriaFixture" success="True" time="0.172" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableCriteriaFixture.GetPageTest" executed="True" success="True" time="0.062" asserts="9" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableCriteriaFixture.ListAllTest" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableCriteriaFixture.NullArgumentNotAllowed" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableCriteriaFixture.PaginableRowsCount" executed="True" success="True" time="0.031" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableQueryFixture" success="True" time="0.156" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableQueryFixture.GetPageTest" executed="True" success="True" time="0.047" asserts="9" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableQueryFixture.ListAllTest" executed="True" success="True" time="0.047" asserts="2" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableQueryFixture.NullArgumentNotAllowed" executed="True" success="True" time="0.016" asserts="0" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginableQueryFixture.PaginableRowsCount" executed="True" success="True" time="0.031" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture" success="True" time="0.203" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.AutoCalcPages" executed="True" success="True" time="0.047" asserts="10" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.HasNotPages" executed="True" success="True" time="0.016" asserts="4" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.HasPages" executed="True" success="True" time="0.031" asserts="5" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.PageMoving" executed="True" success="True" time="0.016" asserts="17" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.SimplePaginator" executed="True" success="True" time="0.016" asserts="8" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.WithCounter" executed="True" success="True" time="0.016" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.PaginatorFixture.WithSelfCounter" executed="True" success="True" time="0.031" asserts="6" />
+                            </results>
+                          </test-suite>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Pagination.QueryRowsCounterFixture" success="True" time="0.125" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.QueryRowsCounterFixture.RowsCount" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.QueryRowsCounterFixture.RowsCountTransforming" executed="True" success="True" time="0.031" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Pagination.QueryRowsCounterFixture.RowsCountUsingParameters" executed="True" success="True" time="0.016" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.Serialization" success="True" time="0.000" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Serialization.SerializeFixture" success="True" time="0.000" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Serialization.SerializeFixture.Clone" executed="True" success="True" time="0.000" asserts="7" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.SoftDelete" success="True" time="0.156" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.SoftDelete.SoftDeleteFixture" success="True" time="0.156" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.SoftDelete.SoftDeleteFixture.NormalEntityShouldActuallyBeDeleted" executed="True" success="True" time="0.047" asserts="1" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.SoftDelete.SoftDeleteFixture.DeletedSoftDeleteEntitiesAreNotReallyDeleted" executed="True" success="True" time="0.047" asserts="3" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.Transform" success="True" time="0.016" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.Transform.PosToBeanResultTransformer" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Transform.PosToBeanResultTransformer.ConstructorInvalidAliases" executed="True" success="True" time="0.000" asserts="0" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Transform.PosToBeanResultTransformer.ConstructorInvalidType" executed="True" success="True" time="0.000" asserts="0" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Transform.PosToBeanResultTransformer.Setters" executed="True" success="True" time="0.016" asserts="4" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.Transform.PosToBeanResultTransformer.TupleDifferentScalars" executed="True" success="True" time="0.000" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite name="NHibernate.Burrow.AppBlock.Test.UserTypes" success="True" time="0.062" asserts="0">
+                        <results>
+                          <test-suite name="NHibernate.Burrow.AppBlock.Test.UserTypes.UpperStringFixture" success="True" time="0.062" asserts="0">
+                            <results>
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.UserTypes.UpperStringFixture.SaveNullPropertyAndGetItBack" executed="True" success="True" time="0.031" asserts="3" />
+                              <test-case name="NHibernate.Burrow.AppBlock.Test.UserTypes.UpperStringFixture.SaveObjectWithStringChangedToUpper" executed="True" success="True" time="0.000" asserts="3" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

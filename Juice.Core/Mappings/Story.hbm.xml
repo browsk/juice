@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Juice.Core"
+                   namespace="Juice.Core.Domain">
+
+  <class name="Story" table="Stories">
+    <id name="Id">
+      <generator class="identity"/>
+    </id>
+    <property name="Name"/>
+    <property name="Description"/>
+    <one-to-one name ="Project" class="Juice.Core.Domain.Project, Juice.Core"/>
+    <bag name="Tasks" table="Tasks">
+      <key column="StoryId"/>
+      <one-to-many class="Task"/>
+    </bag>
+  </class>
+</hibernate-mapping>
