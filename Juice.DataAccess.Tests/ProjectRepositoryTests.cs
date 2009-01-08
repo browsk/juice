@@ -117,7 +117,15 @@ namespace Juice.DataAccess.Tests
         {
             var project = _projects[0];
 
-            _repository.Delete(project);
+            using (ISession session = _sessionFactory.OpenSession())
+            {
+                using (ITransaction transation = session.BeginTransaction())
+                {
+                    _repository.Delete(project);
+
+                    transation.Commit();
+                }
+            }
 
             using (ISession session = _sessionFactory.OpenSession())
             {

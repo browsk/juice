@@ -7,7 +7,7 @@
     <id name="Id">
       <generator class="identity"/>
     </id>
-    <property name="Name"/>
+    <property name="Name"  not-null="true"/>
     <property name="Description"/>
     <many-to-one name="Sprint" class="Juice.Core.Domain.Sprint, Juice.Core" column="SprintId" not-null="true"/>
     <many-to-one name="Story" class="Juice.Core.Domain.Story, Juice.Core" column="StoryId" not-null="false"/>

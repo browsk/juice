@@ -3,13 +3,13 @@
                    assembly="Juice.Core"
                    namespace="Juice.Core.Domain">
 
-  <class name="Sprint" table="Sprints">
+  <class name="Sprint,Juice.Core" table="Sprints">
     <id name="Id">
       <generator class="identity"/>
     </id>
-    <property name="Name"/>
-    <property name="StartDate"/>
-    <property name="EndDate"/>
+    <property name="Name" not-null="true"/>
+    <property name="StartDate" not-null="true"/>
+    <property name="EndDate" not-null="true"/>
     <one-to-one name ="Project" class="Juice.Core.Domain.Project, Juice.Core"/>
     <bag name="Tasks" table="Tasks">
       <key column="SprintId"/>
