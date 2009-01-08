@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Juice.Core.Domain;
 using Juice.Core.Repositories;
 using Juice.DataAccess.Repositories;
+using log4net;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
@@ -40,6 +41,9 @@ namespace Juice.DataAccess.Tests
             new SchemaExport(_configuration).Execute(false, true, false, false);
 
             CreateTestData();
+
+            // enable log4net
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         private void CreateTestData()
@@ -115,16 +119,14 @@ namespace Juice.DataAccess.Tests
         [Fact]
         void Can_delete_existing_Project()
         {
-            var project = _projects[0];
 
-            using (ISession session = _sessionFactory.OpenSession())
+            var project = _repository.Get(_projects[0].Id);
+
+            using (ITransaction transaction = _sessionFactory.GetCurrentSession().BeginTransaction())
             {
-                using (ITransaction transation = session.BeginTransaction())
-                {
-                    _repository.Delete(project);
+                _repository.Delete(project);
 
-                    transation.Commit();
-                }
+                transaction.Commit();
             }
 
             using (ISession session = _sessionFactory.OpenSession())
