@@ -9,5 +9,9 @@
     </id>
     <property name="Name" not-null="true" unique="true"/>
     <property name="Description" not-null="true"/>
+    <set name="Sprints" table="Sprints" cascade="all">
+      <key column="ProjectId"/>
+      <one-to-many class="Sprint, Juice.Core"/>
+    </set>
   </class>
 </hibernate-mapping>

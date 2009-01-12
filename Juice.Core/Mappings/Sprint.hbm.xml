@@ -10,7 +10,7 @@
     <property name="Name" not-null="true"/>
     <property name="StartDate" not-null="true"/>
     <property name="EndDate" not-null="true"/>
-    <one-to-one name ="Project" class="Juice.Core.Domain.Project, Juice.Core"/>
+    <many-to-one name ="Project" column="ProjectId" class="Juice.Core.Domain.Project, Juice.Core"/>
     <bag name="Tasks" table="Tasks">
       <key column="SprintId"/>
       <one-to-many class="Task"/>
