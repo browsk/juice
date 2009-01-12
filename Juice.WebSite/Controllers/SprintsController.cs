@@ -2,11 +2,14 @@
 using Juice.Core.Domain;
 using System.Web.Mvc;
 using Juice.Core.Repositories;
+using Juice.WebSite.Helpers;
 
 namespace Juice.WebSite.Controllers
 {
     public class SprintsController : Controller
     {
+        private ProjectsHelper _projectsHelper;
+
         private ISprintRepository _sprintRepository;
         private IProjectRepository _projectRepository;
 
@@ -25,24 +28,36 @@ namespace Juice.WebSite.Controllers
             set
             {
                 _projectRepository = value;
+
+                _projectsHelper = new ProjectsHelper(this, _projectRepository);
             }
         }
 
         public ActionResult Index()
         {
-            var sprints = _sprintRepository.GetAll();
+            var currentProject = _projectsHelper.CurrentProject;
 
-            if (sprints.Count == 0)
-                ViewData["Message"] = "No sprints defined for this project";
+            if (currentProject == null)
+            {
+                ViewData["Mesage"] = "Select a project first";
+                return RedirectToAction("Index", "Projects");
+            }
+            else
+            {
+                var sprints = currentProject.Sprints;
 
-            return View(sprints);
+                if (sprints.Count == 0)
+                    ViewData["Message"] = "No sprints defined for this project";
+
+                return View(sprints);
+            }
         }
 
         public ActionResult Create()
         {
             var projects = _projectRepository.GetAll();
 
-            int currentProjectId = int.Parse(Request.Cookies["CurrentProjectId"].Value);
+            int currentProjectId = _projectsHelper.CurrentProject.Id;
 
             return View("Create", new SelectList(projects, "Id", "Name", currentProjectId));
         }
@@ -54,10 +69,11 @@ namespace Juice.WebSite.Controllers
                                  Name = formCollection["name"],
                                  StartDate = DateTime.Parse(formCollection["startdate"]),
                                  EndDate = DateTime.Parse(formCollection["enddate"]),
-                                 Project = _projectRepository.Get(int.Parse(formCollection["Id"]))
                              };
 
-            _sprintRepository.Save(sprint);
+            var project = _projectRepository.Get(int.Parse(formCollection["Id"]));
+            project.Sprints.Add(sprint);
+            _projectRepository.Save(project);
 
             return RedirectToAction("Index");
         }

@@ -33,6 +33,9 @@ namespace Juice.WebSite
 
         public override void  Init()
         {
+            // enable log4net
+            log4net.Config.XmlConfigurator.Configure();
+
             base.Init();
             ViewEngines.Engines.Add(new NHamlMvcViewEngine());
             ConfigureIOC();

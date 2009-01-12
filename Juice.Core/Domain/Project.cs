@@ -1,4 +1,4 @@
-﻿using Juice.Core.Domain;
+﻿using System.Collections.Generic;
 
 namespace Juice.Core.Domain
 {
@@ -6,5 +6,6 @@ namespace Juice.Core.Domain
     {
         public virtual string Name { get; set; }
         public virtual string Description { get; set; }
+        public virtual IList<Sprint> Sprints { get; set; }
     }
 }
