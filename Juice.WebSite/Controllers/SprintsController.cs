@@ -1,4 +1,5 @@
-﻿using Juice.Core.Domain;
+﻿using System;
+using Juice.Core.Domain;
 using System.Web.Mvc;
 using Juice.Core.Repositories;
 
@@ -50,7 +51,10 @@ namespace Juice.WebSite.Controllers
         {
             var sprint = new Sprint
                              {
-
+                                 Name = formCollection["name"],
+                                 StartDate = DateTime.Parse(formCollection["startdate"]),
+                                 EndDate = DateTime.Parse(formCollection["enddate"]),
+                                 Project = _projectRepository.Get(int.Parse(formCollection["Id"]))
                              };
 
             _sprintRepository.Save(sprint);
