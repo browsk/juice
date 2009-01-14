@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using Juice.Core.Domain;
 using Juice.Core.Repositories;
+using Juice.WebSite.Helpers;
 
 namespace Juice.WebSite.Controllers
 {
@@ -88,16 +89,7 @@ namespace Juice.WebSite.Controllers
         /// <returns>A redirect to <see cref="HomeController.Index"/></returns>
         public ActionResult Select(int id)
         {
-            if (Response.Cookies["CurrentProjectId"] == null)
-                Response.Cookies.Add(new HttpCookie("CurrentProjectId"));
-
-            if (Response.Cookies["CurrentProjectName"] == null)
-                Response.Cookies.Add(new HttpCookie("CurrentProjectName"));
-
-            Response.Cookies["CurrentProjectId"].Value = id.ToString();
-            Response.Cookies["CurrentProjectName"].Value = _projectRepository.Get(id).Name;
-            Response.Cookies["CurrentProjectId"].Expires = DateTime.Now.AddDays(30);
-            Response.Cookies["CurrentProjectName"].Expires = DateTime.Now.AddDays(30);
+            (new ProjectsHelper(this, _projectRepository)).CurrentProject = _projectRepository.Get(id);
 
             return RedirectToAction("Index", "Home");
         }
