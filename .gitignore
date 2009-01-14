@@ -8,4 +8,4 @@ _ReSharper.Juice/
 bin/
 obj/
 # some vstudio cruft
-Juice.gpstate
+Juice.gpState
