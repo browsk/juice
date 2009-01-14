@@ -8,8 +8,6 @@ namespace Juice.WebSite.Controllers
 {
     public class SprintsController : Controller
     {
-        private ProjectsHelper _projectsHelper;
-
         private ISprintRepository _sprintRepository;
         private IProjectRepository _projectRepository;
 
@@ -29,17 +27,22 @@ namespace Juice.WebSite.Controllers
             {
                 _projectRepository = value;
 
-                _projectsHelper = new ProjectsHelper(this, _projectRepository);
+                ProjectsHelper = new ProjectsHelper(this, _projectRepository);
             }
+        }
+
+        public ProjectsHelper ProjectsHelper
+        {
+            get; set;
         }
 
         public ActionResult Index()
         {
-            var currentProject = _projectsHelper.CurrentProject;
+            var currentProject = ProjectsHelper.CurrentProject;
 
             if (currentProject == null)
             {
-                ViewData["Mesage"] = "Select a project first";
+                ViewData["Message"] = "Select a project first";
                 return RedirectToAction("Index", "Projects");
             }
             else
@@ -57,7 +60,7 @@ namespace Juice.WebSite.Controllers
         {
             var projects = _projectRepository.GetAll();
 
-            int currentProjectId = _projectsHelper.CurrentProject.Id;
+            int currentProjectId = ProjectsHelper.CurrentProject.Id;
 
             return View("Create", new SelectList(projects, "Id", "Name", currentProjectId));
         }
