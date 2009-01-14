@@ -7,3 +7,5 @@ _ReSharper.Juice/
 # bin and obj directories
 bin/
 obj/
+# some vstudio cruft
+Juice.gpstate
