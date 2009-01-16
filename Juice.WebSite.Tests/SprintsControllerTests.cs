@@ -134,8 +134,10 @@ namespace Juice.WebSite.Tests
             SelectList list = result.ViewData.Model as SelectList;
             // current project should be selected
             Assert.Equal(2001, list.SelectedValue);
-            IQueryable<object> items = list.Items.AsQueryable().Cast<object>();
+            Assert.Equal("Name", list.DataTextField);
+            Assert.Equal("Id", list.DataValueField);
 
+            IQueryable<object> items = list.Items.AsQueryable().Cast<object>();
             Assert.Equal(2, items.Count());
         }
     }
