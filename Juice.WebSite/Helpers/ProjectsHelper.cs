@@ -10,65 +10,38 @@ namespace Juice.WebSite.Helpers
 {
     public class ProjectsHelper
     {
-        private Controller _controller;
-        private IProjectRepository _repository;
-
-        public ProjectsHelper(Controller controller, IProjectRepository repository)
+        public virtual int? GetCurrentProjectId(HttpCookieCollection cookies)
         {
-            _controller = controller;
-            _repository = repository;
+            if (cookies == null)
+            {
+                throw new ArgumentNullException("cookies");
+            }
+
+            if (cookies.AllKeys.Contains("CurrentProjectId"))
+            {
+                string idString = cookies["CurrentProjectId"].Value;
+
+                int projectId;
+                if (int.TryParse(idString, out projectId))
+                {
+                    return projectId;
+                }
+            }
+            return null;
         }
 
-        public virtual Project CurrentProject
+        public virtual void SetCurrentProjectId(HttpCookieCollection cookies, Project project)
         {
-            get
-            {
-                Project project = null;
+            if (cookies["CurrentProjectId"] == null)
+                cookies.Add(new HttpCookie("CurrentProjectId"));
 
-                if (_controller.Request != null && _controller.Request.Cookies.AllKeys.Contains("CurrentProjectId"))
-                {
-                    string idString = _controller.Request.Cookies["CurrentProjectId"].Value;
+            if (cookies["CurrentProjectName"] == null)
+                cookies.Add(new HttpCookie("CurrentProjectName"));
 
-                    int projectId;
-                    if (int.TryParse(idString, out projectId))
-                    {
-                        try
-                        {
-                            project = _repository.Get(projectId);
-                        }
-                        catch (Exception e)
-                        {
-                            // not too interested about errors
-                            Debug.Assert(false, e.Message);
-                        }
-                    }
-                }
-
-                Debug.Assert(project != null);
-                
-                return project;
-            }
-
-            set
-            {
-                Debug.Assert(_controller.Response != null);
-
-                if (_controller.Response != null)
-                {
-                    HttpCookieCollection cookies = _controller.Response.Cookies;
-
-                    if (cookies["CurrentProjectId"] == null)
-                        cookies.Add(new HttpCookie("CurrentProjectId"));
-
-                    if (cookies["CurrentProjectName"] == null)
-                        cookies.Add(new HttpCookie("CurrentProjectName"));
-
-                    cookies["CurrentProjectId"].Value = value.Id.ToString();
-                    cookies["CurrentProjectName"].Value = value.Name;
-                    cookies["CurrentProjectId"].Expires = DateTime.Now.AddYears(2);
-                    cookies["CurrentProjectName"].Expires = DateTime.Now.AddYears(2);                    
-                }
-            }
+            cookies["CurrentProjectId"].Value = project.Id.ToString();
+            cookies["CurrentProjectName"].Value = project.Name;
+            cookies["CurrentProjectId"].Expires = DateTime.Now.AddYears(2);
+            cookies["CurrentProjectName"].Expires = DateTime.Now.AddYears(2);                    
         }
     }
 }

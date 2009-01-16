@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Juice.Core.Domain;
 using Juice.Core.Repositories;
 using Juice.WebSite.Controllers;
@@ -18,29 +20,46 @@ namespace Juice.WebSite.Tests
         private SprintsController _controller;
         private Project _project;
 
-        private void GenerateStubsAndControllerForIndexTests()
+        private void GenerateStubsAndController()
         {
             var project = MockRepository.GenerateMock<Project>();
             project.Stub(x => x.Id).Return(2001);
 
-            GenerateStubsAndControllerForIndexTests(project);
+            GenerateStubsAndController(project);
         }
         
-        private void GenerateStubsAndControllerForIndexTests(Project currentProject)
+        private void GenerateStubsAndController(Project currentProject)
         {
-            ProjectsHelper helper = MockRepository.GenerateMock<ProjectsHelper>(null, null);
-
             _project = currentProject;
 
-            helper.Stub(x => x.CurrentProject).Return(_project);
+            _controller = new SprintsController();
 
-            _controller = new SprintsController { ProjectsHelper = helper };
+            _controller.ProjectsHelper = MockRepository.GenerateStub<ProjectsHelper>();
+            if (_project != null)
+            {
+                _controller.ProjectsHelper.Stub(x => x.GetCurrentProjectId(Arg<HttpCookieCollection>.Is.Anything)).Return(_project.Id);
+            }
+
+            HttpRequestBase request = MockRepository.GenerateStub<HttpRequestBase>();
+            HttpContextBase context = MockRepository.GenerateStub<HttpContextBase>();
+            context.Stub(x => x.Request).Return(request);
+
+            _controller.ControllerContext = new ControllerContext(context, new RouteData(), _controller);
+
+            IProjectRepository repository = MockRepository.GenerateStub<IProjectRepository>();
+
+            if (_project != null)
+            {
+                repository.Stub(x => x.Get(Arg<int>.Is.Equal(_project.Id))).Return(_project);
+            }
+
+            _controller.ProjectRepository = repository;
         }
 
         [Fact]
         void Test_Index_Action_When_Sprints_Exist()
         {
-            GenerateStubsAndControllerForIndexTests();
+            GenerateStubsAndController();
 
             _project.Stub(x => x.Sprints).Return(new List<Sprint>
                                                     {
@@ -63,7 +82,7 @@ namespace Juice.WebSite.Tests
         [Fact]
         void Test_Index_Action_With_No_Sprints()
         {
-            GenerateStubsAndControllerForIndexTests();
+            GenerateStubsAndController();
 
             _project.Stub(x => x.Sprints).Return(new List<Sprint>());
 
@@ -83,7 +102,7 @@ namespace Juice.WebSite.Tests
         [Fact]
         void Test_Index_Action_With_No_Current_Project()
         {
-            GenerateStubsAndControllerForIndexTests(null);
+            GenerateStubsAndController(null);
 
             var result = _controller.Index() as RedirectToRouteResult;
 
@@ -93,5 +112,31 @@ namespace Juice.WebSite.Tests
             Assert.Equal("Projects", result.Values["controller"]);
         }
 
+        [Fact]
+        void Test_Create_Action()
+        {
+            GenerateStubsAndController();
+
+            var projects = new List<Project> {{new Project()}, {new Project()}};
+
+            IProjectRepository repository = MockRepository.GenerateStub<IProjectRepository>();
+            repository.Stub(x => x.GetAll()).Return(projects);
+
+            _controller.ProjectRepository = repository;
+
+            var result = _controller.Create() as ViewResult;
+
+            Assert.NotNull(result);
+            Assert.Equal("Create", result.ViewName);
+            Assert.NotNull(result.ViewData.Model);
+            Assert.IsType<SelectList>(result.ViewData.Model);
+
+            SelectList list = result.ViewData.Model as SelectList;
+            // current project should be selected
+            Assert.Equal(2001, list.SelectedValue);
+            IQueryable<object> items = list.Items.AsQueryable().Cast<object>();
+
+            Assert.Equal(2, items.Count());
+        }
     }
 }

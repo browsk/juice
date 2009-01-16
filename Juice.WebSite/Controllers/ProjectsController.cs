@@ -89,7 +89,7 @@ namespace Juice.WebSite.Controllers
         /// <returns>A redirect to <see cref="HomeController.Index"/></returns>
         public ActionResult Select(int id)
         {
-            (new ProjectsHelper(this, _projectRepository)).CurrentProject = _projectRepository.Get(id);
+            (new ProjectsHelper()).SetCurrentProjectId(Response.Cookies, _projectRepository.Get(id));
 
             return RedirectToAction("Index", "Home");
         }

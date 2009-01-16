@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using Juice.Core.Domain;
 using System.Web.Mvc;
 using Juice.Core.Repositories;
@@ -13,6 +15,11 @@ namespace Juice.WebSite.Controllers
 
         private Project _currentProject;
 
+        public SprintsController()
+        {
+            ProjectsHelper = new ProjectsHelper();
+        }
+
         public ISprintRepository SprintRepository
         {
             set
@@ -26,8 +33,6 @@ namespace Juice.WebSite.Controllers
             set
             {
                 _projectRepository = value;
-
-                ProjectsHelper = new ProjectsHelper(this, _projectRepository);
             }
         }
 
@@ -36,17 +41,20 @@ namespace Juice.WebSite.Controllers
             get; set;
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index()
         {
-            var currentProject = ProjectsHelper.CurrentProject;
+            int? currentProjectId = ProjectsHelper.GetCurrentProjectId(Request.Cookies);
 
-            if (currentProject == null)
+            if (currentProjectId == null)
             {
                 ViewData["Message"] = "Select a project first";
                 return RedirectToAction("Index", "Projects");
             }
             else
             {
+                Project currentProject = _projectRepository.Get(currentProjectId.Value);
+
                 var sprints = currentProject.Sprints;
 
                 if (sprints.Count == 0)
@@ -56,15 +64,17 @@ namespace Juice.WebSite.Controllers
             }
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Create()
         {
-            var projects = _projectRepository.GetAll();
+            ICollection<Project> projects = _projectRepository.GetAll();
 
-            int currentProjectId = ProjectsHelper.CurrentProject.Id;
+            int? currentProjectId = ProjectsHelper.GetCurrentProjectId(Request.Cookies);
 
-            return View("Create", new SelectList(projects, "Id", "Name", currentProjectId));
+            return View("Create", new SelectList(projects, "Id", "Name", currentProjectId ?? projects.First().Id));
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CreateNew(FormCollection formCollection)
         {
             var sprint = new Sprint

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -15,66 +12,54 @@ namespace Juice.WebSite.Tests
 {
     public class ProjectsHelperTests
     {
-        // require a concrete controller class as the mocked version was not
-        // working
-        class TestController : Controller
-        {
-        }
-
         [Fact]
         void Test_Get_Current_Project()
         {
-            HttpContextBase context = MockRepository.GenerateStub<HttpContextBase>();
-            HttpRequestBase request = MockRepository.GenerateStub<HttpRequestBase>();
+            HttpCookieCollection cookies = new HttpCookieCollection
+                                               {
+                                                   new HttpCookie("CurrentProjectId", "2"),
+                                                   new HttpCookie("CurrentProjectName", "ProjectName")
+                                               };
 
+            ProjectsHelper helper = new ProjectsHelper();
+
+            int? id = helper.GetCurrentProjectId(cookies);
+
+            Assert.NotNull(id);
+            Assert.Equal(2, id);
+        }
+
+        [Fact]
+        void Test_Get_Current_Project_Returns_Null_When_No_Cookie_Set()
+        {
             HttpCookieCollection cookies = new HttpCookieCollection();
 
-            cookies.Add(new HttpCookie("CurrentProjectId", "2"));
-            cookies.Add(new HttpCookie("CurrentProjectName", "ProjectName"));
+            ProjectsHelper helper = new ProjectsHelper();
 
-            request.Stub(x => x.Cookies).Return(cookies);
-            context.Stub(x => x.Request).Return(request);
+            int? id = helper.GetCurrentProjectId(cookies);
 
-            TestController controller = new TestController();
-            controller.ControllerContext = new ControllerContext(context, new RouteData(), controller);
+            Assert.Null(id);
+        }
 
-            Project project = new Project();
+        [Fact]
+        void Test_Get_Current_Project_Throws_Exception_When_Parameter_Null()
+        {
+            ProjectsHelper helper = new ProjectsHelper();
 
-            IProjectRepository repository = MockRepository.GenerateMock<IProjectRepository>();
-            repository.Expect(x => x.Get(Arg<int>.Is.Equal(2))).Return(project);
-
-            ProjectsHelper helper = new ProjectsHelper(controller, repository);
-
-            Project result = helper.CurrentProject;
-
-            repository.VerifyAllExpectations();
-            Assert.Same(project, result);
+            Assert.Throws<ArgumentNullException>(() => helper.GetCurrentProjectId(null));
         }
 
         [Fact]
         void Test_Set_Current_Project()
         {
-            HttpContextBase context = MockRepository.GenerateStub<HttpContextBase>();
-            HttpResponseBase response = MockRepository.GenerateStub<HttpResponseBase>();
-            
             HttpCookieCollection cookies = new HttpCookieCollection();
-            response.Stub(x => x.Cookies).Return(cookies);
-
-            response.Stub(x => x.Cookies).Return(cookies);
-            context.Stub(x => x.Response).Return(response);
-
-            TestController controller = new TestController();
-            controller.ControllerContext = new ControllerContext(context, new RouteData(), controller);
-
-            IProjectRepository repository = MockRepository.GenerateStub<IProjectRepository>();
-
-            ProjectsHelper helper = new ProjectsHelper(controller, repository);
 
             Project project = MockRepository.GenerateMock<Project>();
             project.Stub(x => x.Id).Return(2);
             project.Name = "ProjectName";
 
-            helper.CurrentProject = project;
+            ProjectsHelper helper = new ProjectsHelper();
+            helper.SetCurrentProjectId(cookies, project);
 
             Assert.Contains("CurrentProjectId", cookies.AllKeys);
             Assert.Equal(project.Id.ToString(), cookies["CurrentProjectId"].Value);
