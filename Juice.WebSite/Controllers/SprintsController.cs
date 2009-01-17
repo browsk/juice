@@ -71,7 +71,7 @@ namespace Juice.WebSite.Controllers
 
             int? currentProjectId = ProjectsHelper.GetCurrentProjectId(Request.Cookies);
 
-            return View("Create", new SelectList(projects, "Id", "Name", currentProjectId ?? projects.First().Id));
+            return View("Create", new SelectList(projects, "projectId", "Name", currentProjectId ?? projects.First().Id));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -84,7 +84,7 @@ namespace Juice.WebSite.Controllers
                                  EndDate = DateTime.Parse(formCollection["enddate"]),
                              };
 
-            var project = _projectRepository.Get(int.Parse(formCollection["Id"]));
+            var project = _projectRepository.Get(int.Parse(formCollection["projectId"]));
             project.Sprints.Add(sprint);
             _projectRepository.Save(project);
 

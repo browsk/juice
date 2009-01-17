@@ -135,10 +135,51 @@ namespace Juice.WebSite.Tests
             // current project should be selected
             Assert.Equal(2001, list.SelectedValue);
             Assert.Equal("Name", list.DataTextField);
-            Assert.Equal("Id", list.DataValueField);
+            Assert.Equal("projectId", list.DataValueField);
 
             IQueryable<object> items = list.Items.AsQueryable().Cast<object>();
             Assert.Equal(2, items.Count());
+        }
+
+        [Fact]
+        void Test_CreateNew_Action()
+        {
+            FormCollection formCollection = new FormCollection
+                                                {
+                                                    {"name", "Name"},
+                                                    {"startdate", "11-01-2009"},
+                                                    {"enddate", "11-02-2009"},
+                                                    {"projectId", "2"}
+                                                };
+
+
+            Project project = new Project
+                                  {
+                                      Description = "My Project",
+                                      Name = "My Project",
+                                      Sprints = new List<Sprint>()
+                                  };
+
+            IProjectRepository repository = MockRepository.GenerateMock<IProjectRepository>();
+            repository.Expect(x => x.Get(Arg<int>.Is.Equal(2))).Return(project);
+
+            repository.Expect(
+                x =>
+                x.Save(
+                    Arg<Project>.Matches(
+                        p =>
+                        p.Sprints.First().Name == "Name" && 
+                        p.Sprints.First().StartDate == new DateTime(2009, 1, 11) &&
+                        p.Sprints.First().EndDate == new DateTime(2009, 2, 11)))).Return(1);
+
+            SprintsController controller = new SprintsController {ProjectRepository = repository};
+
+            RedirectToRouteResult result = controller.CreateNew(formCollection) as RedirectToRouteResult;
+
+            repository.VerifyAllExpectations();
+
+            Assert.NotNull(result);
+            Assert.Equal("Index", result.Values["action"]);
         }
     }
 }
